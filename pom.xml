@@ -3,10 +3,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <!-- Estas etiquetas corresponden al microservicio dk-ms-usuarios-->
+        <!-- Aquí decimos que curso-kubernetes es hijo de spring-boot-->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.8</version>
+        <relativePath/> <!-- lookup parent from repository -->
+        <!-- -->
+    </parent>
 
     <groupId>org.magadiflo.springcloud.dk.ms</groupId>
     <artifactId>curso-kubernetes</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!--    Por defecto, en este tipo de proyecto, el packaging es .jar, lo cambiamos a pom.
+    Esto es porque es un proyecto modular, padre o root. -->
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>dk-ms-usuarios</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
