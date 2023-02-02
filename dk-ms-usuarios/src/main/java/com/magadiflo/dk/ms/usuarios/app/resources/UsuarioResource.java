@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/usuarios")
@@ -35,5 +34,18 @@ public class UsuarioResource {
     public ResponseEntity<Usuario> guardar(@RequestBody Usuario usuario) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(this.usuarioService.guardar(usuario));
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Usuario> editar(@PathVariable Long id, @RequestBody Usuario usuario) {
+        return this.usuarioService.porId(id)
+                .map(usuarioBD -> {
+                    usuarioBD.setNombre(usuario.getNombre());
+                    usuarioBD.setEmail(usuario.getEmail());
+                    usuarioBD.setPassword(usuario.getPassword());
+                    return ResponseEntity.status(HttpStatus.CREATED)
+                            .body(this.usuarioService.guardar(usuarioBD));
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
