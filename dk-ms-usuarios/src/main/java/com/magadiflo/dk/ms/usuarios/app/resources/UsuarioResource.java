@@ -41,7 +41,7 @@ public class UsuarioResource {
             return ResponseEntity.badRequest().body(this.mensajeErrores(result));
         }
 
-        if (this.usuarioService.porEmail(usuario.getEmail()).isPresent()) {
+        if (this.usuarioService.existePorEmail(usuario.getEmail())) {
             return ResponseEntity.badRequest()
                     .body(Collections.singletonMap("email", String.format("Ya existe un usuario con el email %s", usuario.getEmail())));
         }
