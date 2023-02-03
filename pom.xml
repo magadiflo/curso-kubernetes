@@ -22,6 +22,7 @@
 
     <modules>
         <module>dk-ms-usuarios</module>
+        <module>dk-ms-cursos</module>
     </modules>
 
     <properties>
