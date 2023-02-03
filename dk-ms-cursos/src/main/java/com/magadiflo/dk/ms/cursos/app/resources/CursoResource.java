@@ -1,6 +1,6 @@
 package com.magadiflo.dk.ms.cursos.app.resources;
 
-import com.magadiflo.dk.ms.cursos.app.entity.Curso;
+import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
 import com.magadiflo.dk.ms.cursos.app.services.ICursoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

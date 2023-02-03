@@ -1,6 +1,6 @@
 package com.magadiflo.dk.ms.cursos.app.services.impl;
 
-import com.magadiflo.dk.ms.cursos.app.entity.Curso;
+import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
 import com.magadiflo.dk.ms.cursos.app.repositories.ICursoRepository;
 import com.magadiflo.dk.ms.cursos.app.services.ICursoService;
 import org.springframework.stereotype.Service;

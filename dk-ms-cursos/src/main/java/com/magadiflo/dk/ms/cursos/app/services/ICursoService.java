@@ -1,6 +1,6 @@
 package com.magadiflo.dk.ms.cursos.app.services;
 
-import com.magadiflo.dk.ms.cursos.app.entity.Curso;
+import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
 
 import java.util.List;
 import java.util.Optional;

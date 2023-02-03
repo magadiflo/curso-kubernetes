@@ -1,4 +1,4 @@
-package com.magadiflo.dk.ms.cursos.app.entity;
+package com.magadiflo.dk.ms.cursos.app.models.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
