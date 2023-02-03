@@ -38,7 +38,7 @@ public class CursoUsuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CursoUsuario that = (CursoUsuario) o;
-        return Objects.equals(id, that.id) && Objects.equals(usuarioId, that.usuarioId);
+        return Objects.equals(usuarioId, that.usuarioId);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.magadiflo.dk.ms.cursos.app.services.impl;
 import com.magadiflo.dk.ms.cursos.app.clients.IUsuarioClientFeign;
 import com.magadiflo.dk.ms.cursos.app.models.Usuario;
 import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
+import com.magadiflo.dk.ms.cursos.app.models.entity.CursoUsuario;
 import com.magadiflo.dk.ms.cursos.app.repositories.ICursoRepository;
 import com.magadiflo.dk.ms.cursos.app.services.ICursoService;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,11 @@ import java.util.Optional;
 public class CursoServiceImpl implements ICursoService {
 
     private final ICursoRepository cursoRepository;
-    private final IUsuarioClientFeign clientFeign;
+    private final IUsuarioClientFeign usuarioClientFeign;
 
-    public CursoServiceImpl(ICursoRepository cursoRepository, IUsuarioClientFeign clientFeign) {
+    public CursoServiceImpl(ICursoRepository cursoRepository, IUsuarioClientFeign usuarioClientFeign) {
         this.cursoRepository = cursoRepository;
-        this.clientFeign = clientFeign;
+        this.usuarioClientFeign = usuarioClientFeign;
     }
 
     @Override
@@ -47,17 +48,65 @@ public class CursoServiceImpl implements ICursoService {
     }
 
     @Override
+    @Transactional
     public Optional<Usuario> asignarUsuario(Usuario usuarioExistente, Long cursoId) {
+        Optional<Curso> cursoOptional = this.cursoRepository.findById(cursoId);
+        if (cursoOptional.isPresent()) {
+            Usuario usuarioMs = this.usuarioClientFeign.detalle(usuarioExistente.getId());
+
+            Curso curso = cursoOptional.get();
+
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMs.getId());
+
+            curso.addCursoUsuario(cursoUsuario);
+
+            this.cursoRepository.save(curso);
+
+            return Optional.of(usuarioMs);
+        }
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public Optional<Usuario> crearUsuario(Usuario usuarioNuevo, Long cursoId) {
+        Optional<Curso> cursoOptional = this.cursoRepository.findById(cursoId);
+        if (cursoOptional.isPresent()) {
+            Usuario usuarioMs = this.usuarioClientFeign.guardar(usuarioNuevo);
+
+            Curso curso = cursoOptional.get();
+
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMs.getId());
+
+            curso.addCursoUsuario(cursoUsuario);
+
+            this.cursoRepository.save(curso);
+
+            return Optional.of(usuarioMs);
+        }
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public Optional<Usuario> desAsignarUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> cursoOptional = this.cursoRepository.findById(cursoId);
+        if (cursoOptional.isPresent()) {
+            Usuario usuarioMs = this.usuarioClientFeign.detalle(usuario.getId());
+
+            Curso curso = cursoOptional.get();
+
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMs.getId());
+
+            curso.removeCursoUsuario(cursoUsuario);
+
+            this.cursoRepository.save(curso);
+
+            return Optional.of(usuarioMs);
+        }
         return Optional.empty();
     }
 }
