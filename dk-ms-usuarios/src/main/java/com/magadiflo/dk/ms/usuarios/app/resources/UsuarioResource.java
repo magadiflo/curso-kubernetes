@@ -48,4 +48,14 @@ public class UsuarioResource {
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        return this.usuarioService.porId(id)
+                .map(usuario -> {
+                    this.usuarioService.eliminar(usuario.getId());
+                    return ResponseEntity.noContent().build();
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
