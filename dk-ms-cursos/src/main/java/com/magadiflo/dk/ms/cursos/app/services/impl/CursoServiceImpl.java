@@ -1,5 +1,6 @@
 package com.magadiflo.dk.ms.cursos.app.services.impl;
 
+import com.magadiflo.dk.ms.cursos.app.clients.IUsuarioClientFeign;
 import com.magadiflo.dk.ms.cursos.app.models.Usuario;
 import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
 import com.magadiflo.dk.ms.cursos.app.repositories.ICursoRepository;
@@ -14,9 +15,11 @@ import java.util.Optional;
 public class CursoServiceImpl implements ICursoService {
 
     private final ICursoRepository cursoRepository;
+    private final IUsuarioClientFeign clientFeign;
 
-    public CursoServiceImpl(ICursoRepository cursoRepository) {
+    public CursoServiceImpl(ICursoRepository cursoRepository, IUsuarioClientFeign clientFeign) {
         this.cursoRepository = cursoRepository;
+        this.clientFeign = clientFeign;
     }
 
     @Override
