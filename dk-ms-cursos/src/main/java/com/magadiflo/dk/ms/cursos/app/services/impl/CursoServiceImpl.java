@@ -1,5 +1,6 @@
 package com.magadiflo.dk.ms.cursos.app.services.impl;
 
+import com.magadiflo.dk.ms.cursos.app.models.Usuario;
 import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
 import com.magadiflo.dk.ms.cursos.app.repositories.ICursoRepository;
 import com.magadiflo.dk.ms.cursos.app.services.ICursoService;
@@ -40,5 +41,20 @@ public class CursoServiceImpl implements ICursoService {
     @Transactional
     public void eliminar(Long id) {
         this.cursoRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Usuario> asignarUsuario(Usuario usuarioExistente, Long cursoId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Usuario> crearUsuario(Usuario usuarioNuevo, Long cursoId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Usuario> desAsignarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
     }
 }
