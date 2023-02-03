@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,12 @@ public class UsuarioResource {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(this.mensajeErrores(result));
         }
+
+        if (this.usuarioService.porEmail(usuario.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest()
+                    .body(Collections.singletonMap("email", String.format("Ya existe un usuario con el email %s", usuario.getEmail())));
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(this.usuarioService.guardar(usuario));
     }
@@ -50,6 +57,13 @@ public class UsuarioResource {
         }
         return this.usuarioService.porId(id)
                 .map(usuarioBD -> {
+
+                    if (!usuario.getEmail().equalsIgnoreCase(usuarioBD.getEmail()) &&
+                            this.usuarioService.porEmail(usuario.getEmail()).isPresent()) {
+                        return ResponseEntity.badRequest()
+                                .body(Collections.singletonMap("email", String.format("Ya existe un usuario con el email %s", usuario.getEmail())));
+                    }
+
                     usuarioBD.setNombre(usuario.getNombre());
                     usuarioBD.setEmail(usuario.getEmail());
                     usuarioBD.setPassword(usuario.getPassword());
