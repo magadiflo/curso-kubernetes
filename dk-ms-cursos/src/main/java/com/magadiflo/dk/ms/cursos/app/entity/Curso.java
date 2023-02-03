@@ -1,6 +1,7 @@
 package com.magadiflo.dk.ms.cursos.app.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cursos")
@@ -8,6 +9,7 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String nombre;
 
     public Long getId() {

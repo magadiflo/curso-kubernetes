@@ -1,6 +1,8 @@
 package com.magadiflo.dk.ms.usuarios.app.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "usuarios")
@@ -8,9 +10,13 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String nombre;
+    @NotBlank
+    @Email
     @Column(unique = true)
     private String email;
+    @NotBlank
     private String password;
 
     public Long getId() {
