@@ -43,11 +43,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Usuario> listarPorIds(Iterable<Long> ids) {
+        return (List<Usuario>) this.usuarioRepository.findAllById(ids);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<Usuario> porEmail(String email) {
         return this.usuarioRepository.encontrarPorEmail(email);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean existePorEmail(String email) {
         return this.usuarioRepository.existsByEmail(email);
     }

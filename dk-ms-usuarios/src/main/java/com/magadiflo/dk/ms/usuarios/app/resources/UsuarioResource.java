@@ -83,6 +83,11 @@ public class UsuarioResource {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping(path = "/usuarios-por-curso")
+    public ResponseEntity<List<Usuario>> obtenerAlumnosPorCurso(@RequestParam List<Long> usuarioIds) {
+        return ResponseEntity.ok(this.usuarioService.listarPorIds(usuarioIds));
+    }
+
     private Map<String, String> mensajeErrores(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
         result.getFieldErrors().forEach(fieldError -> {
