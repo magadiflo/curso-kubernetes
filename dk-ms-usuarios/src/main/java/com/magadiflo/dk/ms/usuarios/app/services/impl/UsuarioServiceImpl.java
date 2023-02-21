@@ -1,5 +1,6 @@
 package com.magadiflo.dk.ms.usuarios.app.services.impl;
 
+import com.magadiflo.dk.ms.usuarios.app.clients.ICursoClientFeign;
 import com.magadiflo.dk.ms.usuarios.app.models.entity.Usuario;
 import com.magadiflo.dk.ms.usuarios.app.repositories.IUsuarioRepository;
 import com.magadiflo.dk.ms.usuarios.app.services.IUsuarioService;
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements IUsuarioService {
 
     private final IUsuarioRepository usuarioRepository;
+    private final ICursoClientFeign cursoClientFeign;
 
-    public UsuarioServiceImpl(IUsuarioRepository usuarioRepository) {
+    public UsuarioServiceImpl(IUsuarioRepository usuarioRepository, ICursoClientFeign cursoClientFeign) {
         this.usuarioRepository = usuarioRepository;
+        this.cursoClientFeign = cursoClientFeign;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional
     public void eliminar(Long id) {
         this.usuarioRepository.deleteById(id);
+        this.cursoClientFeign.eliminarCursoUsuarioPorId(id);
     }
 
     @Override
