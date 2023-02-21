@@ -19,6 +19,8 @@ public interface ICursoService {
 
     void eliminar(Long id);
 
+    void eliminarCursoUsuarioPorId(Long usuarioId);
+
     //************ Lógica de Negocio para obtener datos de otros microservicio
     Optional<Usuario> asignarUsuario(Usuario usuarioExistente, Long cursoId);
 

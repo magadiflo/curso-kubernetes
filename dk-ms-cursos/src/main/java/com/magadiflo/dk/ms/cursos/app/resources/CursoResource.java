@@ -118,6 +118,12 @@ public class CursoResource {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping(path = "/eliminar-usuario/{usuarioId}")
+    public ResponseEntity<?> eliminarCursoUsuarioPorId(@PathVariable Long usuarioId) {
+        this.cursoService.eliminarCursoUsuarioPorId(usuarioId);
+        return ResponseEntity.noContent().build();
+    }
+
     private Map<String, String> mensajeErrores(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
         result.getFieldErrors().forEach(fieldError -> {
