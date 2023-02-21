@@ -13,6 +13,8 @@ public interface ICursoService {
 
     Optional<Curso> porId(Long id);
 
+    Optional<Curso> porIdConUsuarios(Long id);
+
     Curso guardar(Curso curso);
 
     void eliminar(Long id);

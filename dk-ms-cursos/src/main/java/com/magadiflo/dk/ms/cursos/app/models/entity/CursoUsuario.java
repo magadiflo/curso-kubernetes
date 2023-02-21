@@ -32,7 +32,8 @@ public class CursoUsuario {
     // clase Curso, su método removeCursoUsuario(...) elimine el CursoUsuario correctamente,
     // ya que al eliminar hará la comparación hasta encontrar el objeto a eliminar; por defecto
     // la comparación lo hace por instancia (por referencia), por eso modificamos el método
-    // equals para que la comparación lo haga por el id
+    // equals para que la comparación lo haga por el usuarioId, que es el atributo que nos
+    // interesa por el que haga la comparación.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

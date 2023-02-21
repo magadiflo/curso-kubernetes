@@ -36,6 +36,24 @@ public class CursoServiceImpl implements ICursoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<Curso> porIdConUsuarios(Long id) {
+        Optional<Curso> cursoOptional = this.cursoRepository.findById(id);
+        if (cursoOptional.isPresent()) {
+            Curso curso = cursoOptional.get();
+            if (!curso.getCursoUsuarios().isEmpty()) {
+                List<Long> ids = curso.getCursoUsuarios().stream()
+                        .map(CursoUsuario::getUsuarioId)
+                        .toList();
+                List<Usuario> usuarios = this.usuarioClientFeign.obtenerAlumnosPorCurso(ids);
+                curso.setUsuarios(usuarios);
+            }
+            return Optional.of(curso);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     @Transactional
     public Curso guardar(Curso curso) {
         return this.cursoRepository.save(curso);

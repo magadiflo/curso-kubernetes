@@ -29,7 +29,7 @@ public class CursoResource {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Curso> detalle(@PathVariable Long id) {
-        return this.cursoService.porId(id)
+        return this.cursoService.porIdConUsuarios(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

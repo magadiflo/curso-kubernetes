@@ -2,10 +2,9 @@ package com.magadiflo.dk.ms.cursos.app.clients;
 
 import com.magadiflo.dk.ms.cursos.app.models.Usuario;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * De forma automática este cliente @FeignClient es un componente
@@ -32,4 +31,12 @@ public interface IUsuarioClientFeign {
      */
     @PostMapping
     Usuario guardar(@RequestBody Usuario usuario);
+
+
+    /**
+     * Usamos Iterable en reemplazo de List, ya que usando Feign con List
+     * aparentemente trae problemas.
+     */
+    @GetMapping(path = "/usuarios-por-curso")
+    List<Usuario> obtenerAlumnosPorCurso(@RequestParam Iterable<Long> usuarioIds);
 }
