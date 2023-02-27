@@ -4,7 +4,15 @@ WORKDIR /app/dk-ms-usuarios
 
 COPY ./pom.xml /app
 
-COPY ./dk-ms-usuarios .
+COPY ./dk-ms-usuarios/.mvn ./.mvn
+
+COPY ./dk-ms-usuarios/mvnw .
+
+COPY ./dk-ms-usuarios/pom.xml .
+
+RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target
+
+COPY ./dk-ms-usuarios/src ./src
 
 RUN ./mvnw clean package -DskipTests
 

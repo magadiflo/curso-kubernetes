@@ -91,7 +91,7 @@ public class UsuarioResource {
     private Map<String, String> mensajeErrores(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
         result.getFieldErrors().forEach(fieldError -> {
-            errores.put(fieldError.getField(), String.format("El campo %s %s", fieldError.getField(), fieldError.getDefaultMessage()));
+            errores.put(fieldError.getField(), String.format("Ocurrió un error, el campo %s %s", fieldError.getField(), fieldError.getDefaultMessage()));
         });
         return errores;
     }
