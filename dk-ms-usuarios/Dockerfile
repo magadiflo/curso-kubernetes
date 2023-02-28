@@ -20,6 +20,8 @@ FROM openjdk:17-jdk-alpine
 
 WORKDIR /app
 
+RUN mkdir ./logs
+
 COPY --from=builder /app/dk-ms-usuarios/target/dk-ms-usuarios-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8001
