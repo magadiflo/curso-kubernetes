@@ -24,4 +24,4 @@ COPY --from=builder /app/dk-ms-usuarios/target/dk-ms-usuarios-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8001
 
-ENTRYPOINT ["java", "-jar", "dk-ms-usuarios-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "dk-ms-usuarios-0.0.1-SNAPSHOT.jar"]
