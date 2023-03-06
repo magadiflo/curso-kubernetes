@@ -1,18 +1,20 @@
 FROM openjdk:17-jdk-alpine as builder
 
-WORKDIR /app/dk-ms-usuarios
+ARG MS_NAME=dk-ms-usuarios
+
+WORKDIR /app/$MS_NAME
 
 COPY ./pom.xml /app
 
-COPY ./dk-ms-usuarios/.mvn ./.mvn
+COPY ./$MS_NAME/.mvn ./.mvn
 
-COPY ./dk-ms-usuarios/mvnw .
+COPY ./$MS_NAME/mvnw .
 
-COPY ./dk-ms-usuarios/pom.xml .
+COPY ./$MS_NAME/pom.xml .
 
 RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target
 
-COPY ./dk-ms-usuarios/src ./src
+COPY ./$MS_NAME/src ./src
 
 RUN ./mvnw clean package -DskipTests
 
@@ -22,9 +24,15 @@ WORKDIR /app
 
 RUN mkdir ./logs
 
-COPY --from=builder /app/dk-ms-usuarios/target/dk-ms-usuarios-0.0.1-SNAPSHOT.jar .
+ARG MS_NAME=dk-ms-usuarios
 
-ENV PORT 8000
+ARG TARGET_FOLDER=/app/$MS_NAME/target
+
+COPY --from=builder $TARGET_FOLDER/dk-ms-usuarios-0.0.1-SNAPSHOT.jar .
+
+ARG PORT_APP=8001
+
+ENV PORT $PORT_APP
 
 EXPOSE $PORT
 
