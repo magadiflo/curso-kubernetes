@@ -1,6 +1,8 @@
+ARG MS_NAME=dk-ms-usuarios
+
 FROM openjdk:17-jdk-alpine as builder
 
-ARG MS_NAME=dk-ms-usuarios
+ARG MS_NAME
 
 WORKDIR /app/$MS_NAME
 
@@ -19,6 +21,8 @@ COPY ./$MS_NAME/src ./src
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17-jdk-alpine
+
+ARG MS_NAME
 
 WORKDIR /app
 
