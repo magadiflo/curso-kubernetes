@@ -1,9 +1,35 @@
 version: "3.9"
 services:
   mysql8:
-
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: magadiflo
+      MYSQL_DATABASE: bd_dk_ms_usuarios
+    volumes:
+      - data-mysql:/var/lib/mysql
+    restart: always
+    networks:
+      - spring
   postgres14:
+    image: postgres:14-alpine
+    ports:
+      - "5532:5432"
+    environment:
+      POSTGRES_PASSWORD: magadiflo
+      POSTGRES_DB: bd_dk_ms_cursos
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - spring
+  #dk-ms-usuarios:
 
-  dk-ms-usuarios:
+  #dk-ms-cursos:
 
-  dk-ms-cursos:
+volumes:
+  data-mysql:
+  data-postgres:
+networks:
+    spring:
