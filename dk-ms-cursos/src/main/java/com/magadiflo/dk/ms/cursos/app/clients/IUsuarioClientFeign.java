@@ -12,7 +12,7 @@ import java.util.List;
  * de componente.
  */
 
-@FeignClient(name = "dk-ms-usuarios", url = "http://dk-ms-usuarios:8001", path = "/api/v1/usuarios")
+@FeignClient(name = "dk-ms-usuarios", url = "http://${ms.usuarios.url}", path = "/api/v1/usuarios")
 public interface IUsuarioClientFeign {
     @GetMapping(path = "/{id}")
     Usuario detalle(@PathVariable Long id);
