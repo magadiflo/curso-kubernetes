@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  mysql8:
+
+  postgres14:
+
+  dk-ms-usuarios:
+
+  dk-ms-cursos:
