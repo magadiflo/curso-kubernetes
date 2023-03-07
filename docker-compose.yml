@@ -24,10 +24,28 @@ services:
     restart: always
     networks:
       - spring
-  #dk-ms-usuarios:
-
-  #dk-ms-cursos:
-
+  dk-ms-usuarios:
+    image: usuarios:latest
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./dk-ms-usuarios/.env
+    networks:
+      - spring
+    depends_on:
+      - mysql8
+    restart: always
+  dk-ms-cursos:
+    image: cursos:latest
+    ports:
+      - "8002:8002"
+    env_file:
+      - ./dk-ms-cursos/.env
+    networks:
+      - spring
+    depends_on:
+      - postgres14
+    restart: always
 volumes:
   data-mysql:
   data-postgres:
