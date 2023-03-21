@@ -2,6 +2,8 @@ package com.magadiflo.dk.ms.usuarios.app.resources;
 
 import com.magadiflo.dk.ms.usuarios.app.models.entity.Usuario;
 import com.magadiflo.dk.ms.usuarios.app.services.IUsuarioService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,8 +21,17 @@ public class UsuarioResource {
 
     private final IUsuarioService usuarioService;
 
-    public UsuarioResource(IUsuarioService usuarioService) {
+    private final ApplicationContext context;
+
+    public UsuarioResource(IUsuarioService usuarioService, ApplicationContext context) {
         this.usuarioService = usuarioService;
+        this.context = context;
+    }
+
+    @GetMapping(path = "/crash")
+    public void crash() {
+        // Simulando un error o quiebre de la aplicación
+        ((ConfigurableApplicationContext) this.context).close();
     }
 
     @GetMapping
