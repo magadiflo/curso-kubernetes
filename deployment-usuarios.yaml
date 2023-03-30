@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dk-ms-usuarios
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: dk-ms-usuarios
