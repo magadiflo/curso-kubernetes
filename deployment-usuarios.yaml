@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dk-ms-usuarios
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dk-ms-usuarios
+  template:
+    metadata:
+      labels:
+        app: dk-ms-usuarios
+    spec:
+      containers:
+        - image: magadiflo/usuarios:latest
+          name: usuarios
+          ports:
+            - containerPort: 8001
