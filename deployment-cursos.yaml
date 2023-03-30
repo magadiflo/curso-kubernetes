@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dk-ms-cursos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dk-ms-cursos
+  template:
+    metadata:
+      labels:
+        app: dk-ms-cursos
+    spec:
+      containers:
+        - image: magadiflo/cursos:latest
+          name: cursos
+          ports:
+            - containerPort: 8002
+          env:
+            - name: PORT
+              value: "8002"
+            - name: DB_HOST
+              value: "postgres14:5432"
+            - name: DB_DATABASE
+              value: dk-ms-cursos
+            - name: DB_USERNAME
+              value: postgres
+            - name: DB_PASSWORD
+              value: magadiflo
+            - name: USUARIOS_URL
+              value: "dk-ms-usuarios:8001"
