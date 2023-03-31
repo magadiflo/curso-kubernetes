@@ -19,9 +19,15 @@ spec:
         - containerPort: 3306
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: magadiflo
+            valueFrom:
+              configMapKeyRef:
+                name: dk-ms-usuarios
+                key: password
           - name: MYSQL_DATABASE
-            value: bd_dk_ms_usuarios
+            valueFrom:
+              configMapKeyRef:
+                name: dk-ms-usuarios
+                key: database
         volumeMounts:
           - name: data-mysql
             mountPath: /var/lib/mysql
