@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dk-ms-usuarios
+data:
+  port: "8001"
+  db_host: mysql8:3306
+  database: bd_dk_ms_usuarios
+  username: root
+  password: magadiflo
+  curso_url: dk-ms-cursos:8002
+---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: dk-ms-cursos
+  data:
+    port: "8002"
+    db_host: postgres14:5432
+    database: bd_dk_ms_cursos
+    username: postgres
+    password: magadiflo
+    usuario_url: dk-ms-usuarios:8001
+
