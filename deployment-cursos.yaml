@@ -23,7 +23,7 @@ spec:
             - name: DB_HOST
               value: "postgres14:5432"
             - name: DB_DATABASE
-              value: dk-ms-cursos
+              value: bd_dk_ms_cursos
             - name: DB_USERNAME
               value: postgres
             - name: DB_PASSWORD

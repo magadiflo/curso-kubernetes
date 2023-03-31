@@ -4,9 +4,9 @@ metadata:
   name: dk-ms-cursos
 spec:
   ports:
-    port: 8002
-    protocol: TCP
-    targetPort: 8002
+    - port: 8002
+      protocol: TCP
+      targetPort: 8002
   selector:
     app: dk-ms-cursos
   type: LoadBalancer
