@@ -4,6 +4,7 @@ import com.magadiflo.dk.ms.usuarios.app.models.entity.Usuario;
 import com.magadiflo.dk.ms.usuarios.app.services.IUsuarioService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,9 +24,12 @@ public class UsuarioResource {
 
     private final ApplicationContext context;
 
-    public UsuarioResource(IUsuarioService usuarioService, ApplicationContext context) {
+    private final Environment env;
+
+    public UsuarioResource(IUsuarioService usuarioService, ApplicationContext context, Environment env) {
         this.usuarioService = usuarioService;
         this.context = context;
+        this.env = env;
     }
 
     @GetMapping(path = "/crash")
@@ -35,8 +39,11 @@ public class UsuarioResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarTodos() {
-        return ResponseEntity.ok(this.usuarioService.listar());
+    public ResponseEntity<Map<String, Object>> listarTodos() {
+        Map<String, Object> body = new HashMap<>();
+        body.put("users", this.usuarioService.listar());
+        body.put("podinfo", String.format("%s: %s", this.env.getProperty("MY_POD_NAME"), this.env.getProperty("MY_POD_IP")));
+        return ResponseEntity.ok(body);
     }
 
     @GetMapping(path = "/{id}")
