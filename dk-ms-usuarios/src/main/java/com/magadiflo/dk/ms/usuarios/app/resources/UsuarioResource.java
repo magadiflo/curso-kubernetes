@@ -43,6 +43,7 @@ public class UsuarioResource {
         Map<String, Object> body = new HashMap<>();
         body.put("users", this.usuarioService.listar());
         body.put("podinfo", String.format("%s: %s", this.env.getProperty("MY_POD_NAME"), this.env.getProperty("MY_POD_IP")));
+        body.put("texto", this.env.getProperty("config.texto"));
         return ResponseEntity.ok(body);
     }
 

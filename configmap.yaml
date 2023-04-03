@@ -9,6 +9,9 @@ data:
 #  username: root
 #  password: magadiflo
   curso_url: dk-ms-cursos:8002
+  application.yaml: |-
+    config:
+      texto: Configurando ambiente por defecto
 ---
   apiVersion: v1
   kind: ConfigMap
