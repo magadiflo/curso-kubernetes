@@ -20,7 +20,7 @@ spec:
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: dk-ms-usuarios
                 key: password
           - name: MYSQL_DATABASE
