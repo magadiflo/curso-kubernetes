@@ -23,6 +23,7 @@
     <modules>
         <module>dk-ms-usuarios</module>
         <module>dk-ms-cursos</module>
+        <module>dk-ms-gateway</module>
     </modules>
 
     <properties>

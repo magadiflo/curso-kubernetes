@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dk-ms-usuarios" />
         <module name="dk-ms-cursos" />
+        <module name="dk-ms-gateway" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dk-ms-cursos" options="-parameters" />
+      <module name="dk-ms-gateway" options="-parameters" />
       <module name="dk-ms-usuarios" options="-parameters" />
     </option>
   </component>
