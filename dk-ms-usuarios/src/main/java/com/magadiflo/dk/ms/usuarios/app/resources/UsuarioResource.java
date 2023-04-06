@@ -107,6 +107,12 @@ public class UsuarioResource {
         return ResponseEntity.ok(this.usuarioService.listarPorIds(usuarioIds));
     }
 
+    @GetMapping(path = "/authorized")
+    public Map<String, Object> authorized(@RequestParam String code) {
+        return Collections.singletonMap("code", code);
+    }
+
+
     private Map<String, String> mensajeErrores(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
         result.getFieldErrors().forEach(fieldError -> {
