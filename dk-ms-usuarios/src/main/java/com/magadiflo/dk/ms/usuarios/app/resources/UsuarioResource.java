@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +27,13 @@ public class UsuarioResource {
 
     private final Environment env;
 
-    public UsuarioResource(IUsuarioService usuarioService, ApplicationContext context, Environment env) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuarioResource(IUsuarioService usuarioService, ApplicationContext context, Environment env, PasswordEncoder passwordEncoder) {
         this.usuarioService = usuarioService;
         this.context = context;
         this.env = env;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(path = "/crash")
@@ -65,6 +69,8 @@ public class UsuarioResource {
                     .body(Collections.singletonMap("email", String.format("Ya existe un usuario con el email %s", usuario.getEmail())));
         }
 
+        usuario.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(this.usuarioService.guardar(usuario));
     }
@@ -85,7 +91,7 @@ public class UsuarioResource {
 
                     usuarioBD.setNombre(usuario.getNombre());
                     usuarioBD.setEmail(usuario.getEmail());
-                    usuarioBD.setPassword(usuario.getPassword());
+                    usuarioBD.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
                     return ResponseEntity.status(HttpStatus.CREATED)
                             .body(this.usuarioService.guardar(usuarioBD));
                 })
