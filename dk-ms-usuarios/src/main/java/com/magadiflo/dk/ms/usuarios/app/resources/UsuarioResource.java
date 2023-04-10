@@ -12,10 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/v1/usuarios")
@@ -116,6 +113,15 @@ public class UsuarioResource {
     @GetMapping(path = "/authorized")
     public Map<String, Object> authorized(@RequestParam String code) {
         return Collections.singletonMap("code", code);
+    }
+
+    @GetMapping(path = "/login")
+    public ResponseEntity<?> loginByEmail(@RequestParam String email) {
+        Optional<Usuario> optionalUsuario = this.usuarioService.porEmail(email);
+        if (optionalUsuario.isPresent()) {
+            return ResponseEntity.ok(optionalUsuario.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
 
