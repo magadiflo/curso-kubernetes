@@ -15,6 +15,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
@@ -35,6 +36,12 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 @Configuration
 public class SecurityConfig {
+
+    private final Environment env;
+
+    public SecurityConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     @Order(1)
@@ -87,8 +94,8 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("http://127.0.0.1:8001/login/oauth2/code/dk-ms-usuarios-client")
-                .redirectUri("http://127.0.0.1:8001/authorized")
+                .redirectUri(String.format("%s/login/oauth2/code/dk-ms-usuarios-client", this.env.getProperty("LB_USUARIOS_URI")))
+                .redirectUri(String.format("%s/authorized", this.env.getProperty("LB_USUARIOS_URI")))
                 .scope(OidcScopes.OPENID)
                 .scope("read")
                 .scope("write")
