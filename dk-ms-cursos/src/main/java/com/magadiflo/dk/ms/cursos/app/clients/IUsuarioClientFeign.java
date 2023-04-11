@@ -38,5 +38,5 @@ public interface IUsuarioClientFeign {
      * aparentemente trae problemas.
      */
     @GetMapping(path = "/usuarios-por-curso")
-    List<Usuario> obtenerAlumnosPorCurso(@RequestParam Iterable<Long> usuarioIds);
+    List<Usuario> obtenerAlumnosPorCurso(@RequestParam Iterable<Long> usuarioIds, @RequestHeader(value = "Authorization", required = true) String token);
 }

@@ -28,8 +28,8 @@ public class CursoResource {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Curso> detalle(@PathVariable Long id) {
-        return this.cursoService.porIdConUsuarios(id)
+    public ResponseEntity<Curso> detalle(@PathVariable Long id, @RequestHeader(value = "Authorization", required = true) String token) {
+        return this.cursoService.porIdConUsuarios(id, token)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

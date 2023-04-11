@@ -2,6 +2,7 @@ package com.magadiflo.dk.ms.cursos.app.services;
 
 import com.magadiflo.dk.ms.cursos.app.models.Usuario;
 import com.magadiflo.dk.ms.cursos.app.models.entity.Curso;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface ICursoService {
 
     Optional<Curso> porId(Long id);
 
-    Optional<Curso> porIdConUsuarios(Long id);
+    Optional<Curso> porIdConUsuarios(Long id, String token);
 
     Curso guardar(Curso curso);
 

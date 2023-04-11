@@ -37,7 +37,7 @@ public class CursoServiceImpl implements ICursoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Curso> porIdConUsuarios(Long id) {
+    public Optional<Curso> porIdConUsuarios(Long id, String token) {
         Optional<Curso> cursoOptional = this.cursoRepository.findById(id);
         if (cursoOptional.isPresent()) {
             Curso curso = cursoOptional.get();
@@ -45,7 +45,7 @@ public class CursoServiceImpl implements ICursoService {
                 List<Long> ids = curso.getCursoUsuarios().stream()
                         .map(CursoUsuario::getUsuarioId)
                         .toList();
-                List<Usuario> usuarios = this.usuarioClientFeign.obtenerAlumnosPorCurso(ids);
+                List<Usuario> usuarios = this.usuarioClientFeign.obtenerAlumnosPorCurso(ids, token);
                 curso.setUsuarios(usuarios);
             }
             return Optional.of(curso);
